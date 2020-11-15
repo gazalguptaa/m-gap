@@ -4,7 +4,7 @@ from flask import Flask
 
 app = Flask(__name__, static_folder = "assets")
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {"pool_pre_ping": True} 
-app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:02Nj$P@1@localhost/project'
+app.config['SQLALCHEMY_DATABASE_URI']=''
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
