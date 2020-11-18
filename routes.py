@@ -56,7 +56,10 @@ def index():
 @app.route('/verification_details', methods=['POST'])
 def details():
     temperature = float(request.form['demo-temp'])
-    user_id = int(request.form['user-id'])
+    try:
+        user_id = int(request.form['user-id'])
+    except:
+        user_id = None
     mask_detected = bool(int(request.form['mask-detected']))
     if user_id:
         new_Scan = Scan(mask_detected, temperature, user_id)
@@ -75,7 +78,15 @@ def details():
             print(e)
             return 'There was an issue adding the details of the User to your database'
     else:
-        return render_template('notverified.html')
+        if(temperature < 99.0 and mask_detected == True ):
+            return render_template('noface.html')
+        elif (temperature > 99.0 and mask_detected == True ):
+            return render_template('notemp.html')
+        elif (temperature < 99.0 and mask_detected == False ):
+            return render_template('nomask.html')
+        else:
+            return render_template('notverified.html')
+        
         
 
 @app.route('/register-image', methods=['POST'])
@@ -113,9 +124,11 @@ def verify_face():
             verified_user_id = user_ids[best_match_index]
             print('Person Verified!', 'User ID:', verified_user_id)
         else:
+            print(results[best_match_index])
             raise Exception
         return jsonify({'user_id': verified_user_id})  
-    except:
+    except Exception as e:
+        print(e)
         print('No face detected!', flush=True)
         return jsonify({'user_id': None})
 

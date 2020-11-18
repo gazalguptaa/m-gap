@@ -4,6 +4,7 @@
 
 <head>
 	<title>M-GAP | Register</title>
+	<link rel="icon" type="image/png" href="/assets/images/favicon.png" />
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="assets/css/main.css" />
@@ -91,8 +92,12 @@
 				<section class="features">
 
 					<div class="row">
-						<div class="col-6 col-12-large" id="mycamera" class="image main"></div>
-						<div class="col-6 col-12-large"><p id="register_error"></p></div>
+						<div id="container">
+							<div class="col-6 col-12-large" id="mycamera" class="image main"></div>
+							<div class="col-6 col-12-large">
+								<p id="register_error"></p>
+							</div>
+						</div>
 						<input type="hidden" name="encoding" id="encoding">
 						<input type="hidden" name="register_image" id="register_image">
 						<script language="JavaScript">
@@ -109,6 +114,8 @@
 							<ul class="actions stacked">
 								<li><a href="#" input type="button" id="hello" class="button primary fit"
 										onClick="take_snapshot()">Take Snapshot</a></li>
+								<li><input type="button" value="Retake Snapshot" id="hello" class="button primary fit"
+										onClick="retake()"></li>
 
 							</ul>
 						</div>
@@ -121,7 +128,7 @@
 
 		<style>
 			#hello {
-				margin-left: 100px;
+				margin-left: 70px;
 
 			}
 		</style>
@@ -143,17 +150,22 @@
 					Webcam.upload(data_uri, '/register-image', function (code, text) {
 						console.log('Save successfully');
 						document.getElementById("encoding").value = text;
-						if(JSON.parse(text).length === 0) {
-							var error = "Error registering your face. Please Try again after refreshing the page";
+						if (JSON.parse(text).length === 0) {
+							var error = "Error registering your face. Please try again by clicking on retake snapshot";
 							document.getElementById("register_error").innerHTML = error;
 						}
-						document.getElementById("register_image").value = data_uri; 
+						document.getElementById("register_image").value = data_uri;
 
 						console.log(text);
 					});
 				});
-				
+
 			}
+			function retake() {
+				Webcam.reset( '#mycamera' );
+				Webcam.attach( '#mycamera' );
+			}
+
 
 		</script>
 		<!-- Footer -->

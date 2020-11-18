@@ -13,7 +13,7 @@ class User(db.Model):
     gender = db.Column(db.String(255), nullable=False)
     age = db.Column(db.Integer, nullable=False)
     contact = db.Column(db.String(255), nullable=False)
-    face_encoding = db.Column(db.Text, nullable=False)
+    face_encoding = db.Column(db.LargeBinary, nullable=False)
     register_image = db.Column(db.Text, nullable=False)
     scans = db.relationship('Scan', backref='person', lazy=True)
 
