@@ -5,11 +5,11 @@ app = Flask(__name__, static_folder = "assets")
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {"pool_pre_ping": True} 
 env='okay'
 if env='dev':
-    app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:02Nj$P@1@localhost/project'
+    app.config['SQLALCHEMY_DATABASE_URI']=''
     app.debug = True
 
 else:
-    app.config['SQLALCHEMY_DATABASE_URI']='postgres://lumkgmaezmycfk:f75928cf27f1195702281e4759711544b9f80d982de3440398ee39caaa631a48@ec2-34-232-212-164.compute-1.amazonaws.com:5432/dd0ddh8fneqtkf'
+    app.config['SQLALCHEMY_DATABASE_URI']=''
     app.debug = False
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
